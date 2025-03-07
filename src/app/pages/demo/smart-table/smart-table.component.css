@@ -1,0 +1,9 @@
+.stack-btn {
+  backdrop-filter: blur(9px);
+  box-sizing: border-box;
+  margin-right: var(--scroll-shift-width, 0);
+  border-radius: var(--ui-border-radius-pill);
+  background-color: #eef2f4;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+  transition: background-color 200ms, right 200ms;
+}

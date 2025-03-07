@@ -1,0 +1,619 @@
+<div class="container-fluid">
+  <!-- Nav bar -->
+  <!-- <h4 class="container-fluid my-2 mx-2 p-0">
+    <span *ngIf="!isLoading"> {{formHeading}}</span>
+    <span *ngIf="isLoading" class="placeholder placeholder-custom-container-heading"></span>
+  </h4>
+  <div class="w-100 d-flex my-2 flex-wrap mx-2">
+    <div class="fs-6 fw-lighter mx-2 px-2 mouse-pointer component-nav-item" *ngIf="!isLoading">Test Nav</div>
+    <span *ngIf="isLoading" class="placeholder placeholder-custom-container-heading w-8vw"></span>
+    <div class="fs-6 fw-lighter mx-2 px-2 mouse-pointer component-nav-item" *ngIf="!isLoading">Test Nav</div>
+    <span *ngIf="isLoading" class="placeholder placeholder-custom-container-heading w-8vw mx-2"></span>
+    <div class="fs-6 fw-lighter mx-2 px-2 mouse-pointer component-nav-item" *ngIf="!isLoading">Test Nav</div>
+    <span *ngIf="isLoading" class="placeholder placeholder-custom-container-heading w-8vw mx-2"></span>
+    <div class="fs-6 fw-lighter mx-2 px-2 mouse-pointer component-nav-item" *ngIf="!isLoading">Test Nav</div>
+    <span *ngIf="isLoading" class="placeholder placeholder-custom-container-heading w-8vw mx-2"></span>
+    <div class="fs-6 fw-lighter mx-2 px-2 mouse-pointer component-nav-item" *ngIf="!isLoading">Test Nav</div>
+    <span *ngIf="isLoading" class="placeholder placeholder-custom-container-heading w-8vw"></span>
+
+  </div> -->
+  <!-- Nav bar end -->
+  <!-- <div class="w-100 form-title-bg-2a3042 fs-5 text-center text-light p-1 shadow  rounded-top-2">
+    Material Master
+  </div> -->
+  <div class="container-fluid p-0 placeholder-glow" [ngClass]="{'shadow-lg' : !isItSourceOffCanvas}">
+    <form [formGroup]="dataForm">
+      <div class="py-1 rounded-2"
+        [ngClass]="{'form-container-vh-80p5' : isItSourceOffCanvas, 'form-container-vh-75' : !isItSourceOffCanvas}">
+
+        <div class="w-100 bg-ffffffcf p-2 rounded-2 position-relative">
+          <span class="position-absolute top-0 end-0 mt-2 me-2 mouse-default" (click)="isItEdit = !isItEdit">
+            <span *ngIf="!isItEdit">Edit <i class='bx bxs-pencil'></i></span>
+            <span *ngIf="isItEdit">Cancel <i class='bx bx-x-circle'></i></span>
+          </span>
+
+          <span class="px-2 fw-bold fs-5 form-sub-heading">
+            <span *ngIf="!isLoading">Material Details</span>
+            <span *ngIf="isLoading" class="placeholder placeholder-custom-container-heading ms-1"></span>
+          </span>
+          <div class="row m-0">
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600">Material Type <span
+                  class="text-danger">*</span></span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <ng-select formControlName="matType"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading, '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                class="w-100" [items]="DrpDwn_MaterialType" bindLabel="NAME" bindValue="CODE"
+                [readonly]="!isItEdit"></ng-select>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Material Name <span
+                  class="text-danger">*</span></span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <input formControlName="matName" class="form-control form-control-sm"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading, '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                type="text" [readonly]="!isItEdit">
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+          </div>
+
+          <div class="row m-0">
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Alternate Material
+                Name<span class="text-danger">*</span></span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <input formControlName="alternateMatName"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                type="text" class="form-control form-control-sm" [readonly]="!isItEdit">
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <!-- Material Group <span class="text-danger">*</span> -->
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Material Group <span
+                  class="text-danger">*</span></span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <ng-select formControlName="matGroup"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                class="w-100" [items]="DrpDwn_MaterialGroup" bindLabel="NAME" bindValue="CODE"
+                [readonly]="!isItEdit"></ng-select>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+          </div>
+        </div>
+        <!-- divider -->
+        <!-- <div class="row d-flex justify-content-start align-items-center m-0">
+          <div class="col col-5 col-md-3 bg-warning py-1">
+            <span class="mx-2 fw-bold">Account Details</span>
+          </div>
+          <div class="col col-7 col-md-9">
+            <hr class="hr-bold w-100">
+          </div>
+        </div> -->
+
+        <div class="w-100 bg-ffffffcf p-2 rounded-2 mt-2">
+          <span class="px-2 fw-bold fs-5 form-sub-heading">
+            <span *ngIf="!isLoading">Account Details</span>
+            <span *ngIf="isLoading" class="placeholder placeholder-custom-container-heading ms-1"></span>
+          </span>
+          <div class="row m-0">
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Purchase Ledger <span
+                  class="text-danger">*</span></span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <ng-select formControlName="purchaseLedger"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                class="w-100" [items]="DrpDwn_MaterialGroup" bindLabel="NAME" bindValue="CODE"
+                [readonly]="!isItEdit"></ng-select>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Purchase Return Ledger
+                <span class="text-danger">*</span></span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <ng-select formControlName="purchaseReturnLedger"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                class="w-100" [items]="DrpDwn_MaterialGroup" bindLabel="NAME" bindValue="CODE"
+                [readonly]="!isItEdit"></ng-select>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+          </div>
+          <div class="row m-0">
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600">Sales Ledger <span
+                  class="text-danger">*</span></span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <ng-select formControlName="salesLedger"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                class="w-100" [items]="DrpDwn_MaterialGroup" bindLabel="NAME" bindValue="CODE"
+                [readonly]="!isItEdit"></ng-select>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Sales Return Ledger
+                <span class="text-danger">*</span></span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <ng-select formControlName="salesReturnLedger"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                class="w-100" [items]="DrpDwn_MaterialGroup" bindLabel="NAME" bindValue="CODE"
+                [readonly]="!isItEdit"></ng-select>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+          </div>
+          <div class="row m-0">
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> HSN Code <span
+                  class="text-danger">*</span></span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <ng-select formControlName="hsnCode"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                class="w-100" [items]="DrpDwn_MaterialGroup" bindLabel="NAME" bindValue="CODE"
+                [readonly]="!isItEdit"></ng-select>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Goods Category <span
+                  class="text-danger">*</span></span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <input formControlName="goodsCategory"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                type="text" class="form-control form-control-sm" [readonly]="!isItEdit">
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+          </div>
+          <div class="row m-0">
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Rate For ITC4 (INR)
+                <span class="text-danger">*</span></span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <input formControlName="rateForITC4"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading, '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                type="number" class="form-control form-control-sm" [readonly]="!isItEdit">
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600">Labour Rate INR<span
+                  class="text-danger">*</span></span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <input formControlName="labourRateINR"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                type="number" class="form-control form-control-sm" [readonly]="!isItEdit">
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- divider -->
+        <!-- <div class="row d-flex justify-content-start align-items-center m-0">
+          <div class="col col-5 col-md-3  bg-warning py-1">
+            <span class="mx-2 fw-bold">Other Details</span>
+          </div>
+          <div class="col col-7 col-md-9">
+            <hr class="hr-bold w-100">
+          </div>
+        </div> -->
+
+        <div class="w-100 bg-ffffffcf p-2 rounded-2 mt-2">
+          <span class="px-2 fw-bold fs-5 form-sub-heading">
+            <span *ngIf="!isLoading">Other Details</span>
+            <span *ngIf="isLoading" class="placeholder placeholder-custom-container-heading ms-1"></span>
+          </span>
+          <div class="row m-0">
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Material Sub Grade
+                <span class="text-danger">*</span></span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <ng-select formControlName="matSubGrade"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                class="w-100" [items]="DrpDwn_MaterialGroup" bindLabel="NAME" bindValue="CODE"
+                [readonly]="!isItEdit"></ng-select>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Sub Grade Description
+                <span class="text-danger">*</span></span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <input formControlName="subGradeDesc"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                type="text" class="form-control form-control-sm" [readonly]="!isItEdit">
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+          </div>
+          <div class="row m-0">
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Material Own Type
+                <span class="text-danger">*</span></span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <input formControlName="matOwnType"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                type="text" class="form-control form-control-sm" [readonly]="!isItEdit">
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Despatch As <span
+                  class="text-danger">*</span></span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-row flex-wrap">
+              <div class="d-flex align-items-center justify-content-center me-2"
+                [ngClass]="{'w-auto' : !isLoading, 'w-25' : isLoading , 'd-none' : (!isItEdit &&  despatchAs.value != '0')}">
+                <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}">
+                  <input type="radio" class="form-check-input me-1" formControlName="despatchAs" value="0"
+                    [ngClass]="{'d-none' : !isItEdit}">
+                  <span class="ms-2"> Casting </span>
+                </span>
+                <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+              </div>
+              <div class="d-flex align-items-center justify-content-center mx-2"
+                [ngClass]="{'w-auto' : !isLoading, 'w-25' : isLoading, 'd-none' : (!isItEdit &&  despatchAs.value != '1')}">
+                <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}">
+                  <input type="radio" class="form-check-input me-1" formControlName="despatchAs" value="1"
+                    [ngClass]="{'d-none' : !isItEdit}">
+                  <span class="m"> Finished </span>
+                </span>
+                <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+
+              </div>
+              <div class="d-flex align-items-center justify-content-center mx-2"
+                [ngClass]="{'w-auto' : !isLoading, 'w-25' : isLoading, 'd-none' : (!isItEdit &&  despatchAs.value != '2')}">
+                <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}">
+                  <input type="radio" class="form-check-input me-1" formControlName="despatchAs" value="2"
+                    [ngClass]="{'d-none' : !isItEdit}">
+                  <span class=""> Assembly </span>
+                </span>
+                <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+
+              </div>
+            </div>
+          </div>
+          <div class="row m-0">
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <!-- Drawing Number <span class="text-danger">*</span> -->
+
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Drawing Number <span
+                  class="text-danger">*</span></span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <input formControlName="drawingNo"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                type="text" class="form-control form-control-sm" [readonly]="!isItEdit">
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Revision Number &
+                Date</span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <div class="row m-0 p-0 w-100">
+                <div class="col col-6 m-0 p-0">
+                  <input formControlName="revisionNum"
+                    [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                    type="text" class="form-control form-control-sm w-100" [readonly]="!isItEdit">
+                  <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+                </div>
+                <div class="col col-6 p-0 m-0 ps-2">
+                  <input formControlName="revisionDate"
+                    [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                    bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    [attr.placeholder]="isItEdit ? 'DD/MM/YYYY' : ''" class="form-control form-control-sm"
+                    [readonly]="!isItEdit" />
+                  <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row m-0">
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <!-- Casting Weight -->
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Casting Weight</span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <input formControlName="castingWeight"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                type="number" class="form-control form-control-sm" [readonly]="!isItEdit">
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Finished Weight</span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <input formControlName="finishedWeight"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                type="number" class="form-control form-control-sm" [readonly]="!isItEdit">
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+          </div>
+          <div class="row m-0">
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Casting Rate INR
+              </span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <input formControlName="castingRateINR"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                type="number" class="form-control form-control-sm" [readonly]="!isItEdit">
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Finish Rate INR</span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <input formControlName="finishedRateINR"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                type="number" class="form-control form-control-sm" [readonly]="!isItEdit">
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+          </div>
+          <div class="row m-0">
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> BHN
+                Specification</span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span *ngIf="isLoading" class="w-100 d-flex justify-content-between">
+                <span *ngIf="isLoading" class="placeholder placeholder-custom me-2"></span>
+                <span *ngIf="isLoading" class="placeholder placeholder-custom mx-2"></span>
+                <span *ngIf="isLoading" class="placeholder placeholder-custom mx-2"></span>
+                <span *ngIf="isLoading" class="placeholder placeholder-custom ms-2"></span>
+              </span>
+              <div class="row" [ngClass]="{'d-flex' : !isLoading, 'd-none' : isLoading}">
+                <div class="col col-2 d-flex align-items-center">
+                  <span class="fw-bolder ms-2"> From </span>
+                </div>
+                <div class="col col-4">
+                  <input formControlName="bhnSpecFrom" type="number" class="form-control form-control-sm"
+                    [ngClass]="{ '' : isItEdit ,  'form-control-cancel' :!isItEdit }" [readonly]="!isItEdit">
+                  <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+                </div>
+                <div class="col col-2 d-flex align-items-center">
+                  <span class="fw-600"> To </span>
+                </div>
+                <div class="col col-4">
+                  <input formControlName="bhnSpecTo" type="number" class="form-control form-control-sm"
+                    [ngClass]="{ '' : isItEdit ,  'form-control-cancel' :!isItEdit }" [readonly]="!isItEdit">
+                </div>
+              </div>
+            </div>
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Sales Classification
+              </span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <ng-select formControlName="salesClassification"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                class="w-100" [items]="DrpDwn_MaterialGroup" bindLabel="NAME" bindValue="CODE"
+                [readonly]="!isItEdit"></ng-select>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+          </div>
+          <div class="row m-0">
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Market Segement
+              </span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <ng-select formControlName="marketSegment"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                class="w-100" [items]="DrpDwn_MaterialGroup" bindLabel="NAME" bindValue="CODE"
+                [readonly]="!isItEdit"></ng-select>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Internal Part Code
+              </span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <input formControlName="internalPartCode"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                type="text" class="form-control form-control-sm" [readonly]="!isItEdit">
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+          </div>
+          <div class="row m-0">
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> UOM </span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <ng-select formControlName="uom"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                class="w-100" [items]="DrpDwn_MaterialGroup" bindLabel="NAME" bindValue="CODE"
+                [readonly]="!isItEdit"></ng-select>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Quality Type </span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <ng-select formControlName="qualityType"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                class="w-100" [items]="DrpDwn_MaterialGroup" bindLabel="NAME" bindValue="CODE"
+                [readonly]="!isItEdit"></ng-select>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+          </div>
+          <div class="row m-0">
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Rejected Scrap
+                Material </span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <ng-select formControlName="rejectedScarpMaterial"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                class="w-100" [items]="DrpDwn_MaterialGroup" bindLabel="NAME" bindValue="CODE"
+                [readonly]="!isItEdit"></ng-select>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Is Active Material?
+              </span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center">
+              <span *ngIf="!isItEdit">
+                @if(isActiveMaterial.value){
+                <span *ngIf="!isLoading" class="ms-2"> Yes</span>
+                }@else {
+                <span *ngIf="!isLoading" class="ms-2"> No</span>
+                }
+              </span>
+              <input formControlName="isActiveMaterial"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : (isLoading || !isItEdit ),  '' : isItEdit }"
+                type="checkbox" class="form-check-input" [readonly]="!isItEdit">
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- divider -->
+        <!-- <div class="row d-flex justify-content-start align-items-center m-0">
+          <div class="col col-5 col-md-3 bg-warning py-1">
+            <span class="mx-2 fw-bold">Stock Location Details</span>
+          </div>
+          <div class="col col-7 col-md-9">
+            <hr class="hr-bold w-100">
+          </div>
+        </div> -->
+
+        <div class="w-100 bg-ffffffcf p-2 rounded-2 mt-2">
+          <span class="px-2 fw-bold fs-5 form-sub-heading">
+            <span *ngIf="!isLoading">Stock Location Details</span>
+            <span *ngIf="isLoading" class="placeholder placeholder-custom-container-heading ms-1"></span>
+          </span>
+          <div class="row m-0">
+            <div class="col col-12 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <div [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}">
+                <p class="fs-1 text-danger">Edit Grid</p>
+              </div>
+              <div *ngIf="isLoading" class="w-100 row">
+                <div class="col col-3 mt-1" *ngFor="let num of [].constructor(20); let i = index">
+                  <span class="placeholder placeholder-custom w-100"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <!-- divider -->
+        <!-- <div class="row d-flex justify-content-start align-items-center m-0">
+          <div class="col col-5 col-md-3 bg-warning py-1">
+            <span class="mx-2 fw-bold">Stock Level Details</span>
+          </div>
+          <div class="col col-7 col-md-9">
+            <hr class="hr-bold w-100">
+          </div>
+        </div> -->
+
+        <div class="w-100 bg-ffffffcf p-2 rounded-2 mt-2">
+          <span class="px-2 fw-bold fs-5 form-sub-heading">
+            <span *ngIf="!isLoading">Stock Level Details</span>
+            <span *ngIf="isLoading" class="placeholder placeholder-custom-container-heading ms-1"></span>
+          </span>
+          <div class="row m-0">
+            <div class="col col-12 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <div [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}">
+                <p class="fs-1 text-danger">Edit Grid</p>
+              </div>
+              <div *ngIf="isLoading" class="w-100 row">
+                <div class="col col-3 mt-1" *ngFor="let num of [].constructor(20); let i = index">
+                  <span class="placeholder placeholder-custom w-100"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row mt-2 bg-white mx-0 py-2 position-absolute bottom-0 start-0 end-0">
+  <div class="col-md-12 form-btns">
+    <button type="button" class="btn btn-info btn-sm w-10 shadow mx-1"
+      [ngClass]="{'mouse-default' : !isLoading, 'mouse-no-drop' : isLoading}" [hidden]="!displayBackBtn"
+      (click)="isLoading ? '': onBack()">Back</button>
+
+    <button class="btn btn-success btn-sm w-10 shadow mx-1"
+      [ngClass]="{'mouse-default' : !isLoading, 'mouse-no-drop' : isLoading}" type="button" [disabled]="!dataForm.valid"
+      [hidden]="!displaySubmitBtn" (click)="isLoading?'': onSubmit()">Submit</button>
+
+    <button type="button" class="btn btn-warning btn-sm w-10 shadow mx-1"
+      [ngClass]="{'mouse-default' : !isLoading, 'mouse-no-drop' : isLoading}" [hidden]="!displayUpdateBtn"
+      (click)="isLoading?'': onUpdate()">Update</button>
+
+    <button type="button" class="btn btn-danger btn-sm w-10 shadow mx-1"
+      [ngClass]="{'mouse-default' : !isLoading, 'mouse-no-drop' : isLoading}" [hidden]="!displayDelBtn"
+      (click)="isLoading?'': onDelete()">Delete</button>
+
+    <button type="button" class="btn btn-success btn-sm w-10 shadow mx-1"
+      [ngClass]="{'mouse-default' : !isLoading, 'mouse-no-drop' : isLoading}" [hidden]="!displayApproveBtn"
+      (click)="isLoading?'': onApprove()">Approve</button>
+
+    <button type="button" class="btn btn-dark btn-sm w-10 shadow mx-1"
+      [ngClass]="{'mouse-default' : !isLoading, 'mouse-no-drop' : isLoading}" [hidden]="!displayPrintBtn"
+      (click)="isLoading?'': onPrint()">Print</button>
+  </div>
+</div>

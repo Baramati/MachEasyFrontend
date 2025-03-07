@@ -1,0 +1,583 @@
+/* Importing Bootstrap SCSS file. */
+// @import '~bootstrap/scss/bootstrap';
+
+/* You can add global styles to this file, and also import other style files */
+@import '~dropzone/dist/min/dropzone.min.css';
+
+.modal-holder {
+  animation-name: example;
+  animation-duration: 0.3s;
+}
+
+@keyframes example {
+  0% {
+    transform: scale(0.5)
+  }
+
+  100% {
+    transform: scale(1)
+  }
+}
+
+
+
+
+.carousel-item {
+  transition: opacity 0.7s ease !important;
+  position: absolute !important;
+  display: block !important;
+  opacity: 0;
+}
+
+.carousel-item.active {
+  position: relative !important;
+  opacity: 1;
+}
+
+ngx-dropzone {
+  border: 2px dashed var(--bs-border-color) !important;
+}
+
+
+
+
+//
+// Dropzone
+//
+
+.dropzone {
+  min-height: 230px !important;
+  border: 2px dashed #eff2f7 !important;
+  background: #fff !important;
+  border-radius: 6px !important;
+  text-align: center;
+
+  .dz-message {
+    width: 100%;
+    margin: 1em 0;
+  }
+}
+
+[data-dz-thumbnail] {
+  width: 100%;
+  height: 100%;
+}
+
+.dropzone .dz-preview .dz-image {
+  border-radius: 20px;
+  overflow: hidden;
+  width: 120px;
+  height: 120px;
+  position: relative;
+  display: block;
+  z-index: 10;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropzone .dz-preview .dz-image img {
+  display: block;
+  height: 90px;
+  width: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropzone .dz-preview .dz-remove {
+  margin-top: 10px;
+}
+
+dropzone>.dropzone.dz-wrapper .dz-message {
+  background-color: transparent !important;
+  border: none !important;
+  overflow: inherit !important;
+  width: inherit !important;
+  min-width: inherit !important;
+  min-height: 180px !important;
+  max-width: inherit !important;
+  max-height: inherit !important;
+  margin: 0px !important;
+}
+
+.dz-text {
+  font-size: 1.21875rem
+}
+
+dropzone>.dropzone.dz-wrapper {
+  min-height: 76px !important;
+  border: none !important;
+}
+
+
+#component-colorpicker {
+
+  color-picker {
+    .open {
+      right: 0px !important;
+      left: auto !important;
+      z-index: 9999 !important;
+    }
+  }
+}
+
+.color-picker {
+  .arrow.arrow-bottom {
+    right: 20px !important;
+    left: auto !important;
+  }
+}
+
+.switch.switch-small>.switch-pane>span {
+  font-size: 12px !important;
+}
+
+.modal-dialog {
+  top: auto !important;
+  bottom: auto !important;
+}
+
+.slick-dots {
+  margin-top: 20px;
+  bottom: -40px !important;
+
+
+  li.slick-active button:before {
+    color: #556ee6 !important;
+    font-size: x-small !important;
+  }
+}
+
+.slick-dots li button:before {
+  color: #556ee6;
+  font-size: x-small !important;
+}
+
+.slick-slide img {
+  width: 100%;
+}
+
+.dropup {
+  .dropdown-menu {
+    inset: auto auto auto 0px !important;
+    transform: translateY(-160px) !important;
+  }
+}
+
+.ngx-slider .ngx-slider-tick.ngx-slider-selected {
+  background-color: #556ee6 !important;
+}
+
+
+//--------------------------- CUSTOME
+// ng select css
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+:root {
+  --bg-2a3042: #2a3042;
+}
+
+.form-title-bg-2a3042 {
+  background-color: var(--bg-2a3042) !important;
+}
+
+.form-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container-vh-75 {
+  height: 75vh;
+  overflow-y: scroll !important;
+}
+
+.form-container-vh-80p5 {
+  height: 80.5vh;
+  overflow-y: scroll !important;
+}
+
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 18px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}
+
+.hr-bold {
+  border: 1px solid var(--bg-2a3042) !important;
+}
+
+.w-10 {
+  width: 10%;
+}
+
+.w-30 {
+  width: 30%;
+}
+
+
+.ng-select .ng-select-container {
+  min-height: 28px !important;
+}
+
+.ng-select.ng-select-single .ng-select-container {
+  height: 28px !important;
+}
+
+//------------------------ Offcanvas ------------------------//
+.offcanvas {
+  --bs-offcanvas-width: 80vw !important;
+}
+
+.offcanvas-custom {
+  backdrop-filter: blur(5px) !important;
+  // background: rgba(255, 255, 255, 0.5) !important;
+  background: #eef2f4 !important;
+}
+
+.offcanvas-custom-btl-close {
+  position: absolute;
+  top: 1rem;
+  display: block;
+  // left: -4.34rem; // this for `Close` text in button
+  left: -3.55rem;
+  width: 3.5rem;
+}
+
+.offcanvas-custom-btl-close-sm-screen {
+  display: none !important;
+}
+
+@media screen and (max-width: 800px) {
+  .offcanvas {
+    --bs-offcanvas-width: 80vw !important;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .offcanvas {
+    --bs-offcanvas-width: 100vw !important;
+  }
+
+  .offcanvas-custom-btl-close {
+    display: none;
+  }
+
+  .offcanvas-custom-btl-close-sm-screen {
+    display: flex !important;
+    position: absolute;
+    right: 0.2rem;
+    top: 0.1rem
+  }
+
+  .offcanvas-body {
+    padding: .5rem 0.5rem;
+  }
+}
+
+.offcanvas-custom-btl-stack {
+  position: absolute;
+  top: 4.2rem;
+  display: block;
+  // left: -4.34rem; // this for `Close` text in button
+  left: -3.55rem;
+  width: 3.5rem;
+}
+
+
+//------------------------ Offcanvas end ------------------------//
+
+//----------------- smart table ----------------------------//
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.default.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.cyan.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.dark-cyan.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.dark-green.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.dark-indigo.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.dark-orange.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.dark-pink.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.dark-purple.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.dark-red.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.dark-teal.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.dark-turquoise.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.default.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.default-dev.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.fluent.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.green.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.indigo.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.orange.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.pink.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.purple.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.red.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.teal.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.turquoise.css");
+// @import url("../node_modules/smart-webcomponents-angular/source/styles/smart.ui.default.css");
+
+.smart-table td,
+.smart-table th {
+  padding-top: 2px !important;
+  padding-right: 2px !important;
+  padding-bottom: 2px !important;
+  padding-left: 2px !important;
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.smart-table tbody tr {
+  height: 24px !important;
+}
+
+.smart-table.thead-primary table th {
+  background-color: #f0f0f1 !important;
+  color: black !important;
+  font-weight: 500;
+}
+
+
+.smart-table thead tr {
+  /* height: var(--smart-table-column-header-height); */
+  height: 1% !important;
+  font-size: 11px !important;
+  color: #000 !important;
+  background-image: -webkit-linear-gradient(top, #dae7f6, #cddef3 45%, #abc7ec 46%, #abc7ec 50%, #b8cfee 51%, #cbddf3);
+}
+
+.smart-arrow-right:after {
+  content: var(--smart-icon-arrow-right);
+  margin-top: 30% !important;
+}
+
+.smart-arrow-right-last:after {
+  content: var(--smart-icon-last-page);
+  margin-top: 30% !important;
+}
+
+.smart-table.table-bordered table {
+  border: var(--smart-border-width) solid #000 !important;
+}
+
+.smart-table smart-pager.smart-element {
+  border: 1px #000 solid !important;
+}
+
+.smart-table.table-bordered table td,
+.smart-table.table-bordered table th {
+  border: var(--smart-border-width) solid #000 !important;
+}
+
+.smart-table td.smart-table-select-row>div,
+.smart-table th.smart-table-select-all>div {
+  border: var(--smart-border-width) solid #6c757d !important;
+}
+
+.smart-table thead th {
+  background-color: #d4e2f1 !important;
+  color: #000 !important;
+  font-weight: bold !important;
+}
+
+// * Smart Table pagination bar height 
+.smart-table smart-pager.smart-element {
+  height: 33px !important;
+}
+
+.smart-table smart-pager .smart-pager-far-buttons-container,
+.smart-table smart-pager .smart-pager-near-buttons-container {
+  margin-top: 50px !important;
+}
+
+//for globaly smart table position css
+.smart-table>.smart-container {
+  border: var(--smart-border-width) solid var(--smart-border);
+  position: sticky !important;
+  overflow: auto;
+  border-radius: inherit;
+  max-height: inherit;
+}
+
+.smart-grid.smart-element {
+  width: 100% !important;
+  // height: 600px !important
+}
+
+//----------------- smart table End ----------------------------//
+//--------- mouse pointer styles
+.mouse-pointer {
+  cursor: pointer !important;
+}
+
+.mouse-no-drop {
+  cursor: no-drop !important;
+}
+
+.mouse-default {
+  cursor: default !important;
+}
+
+//--------- mouse pointer styles end
+
+
+.placeholder-custom {
+  height: 80% !important;
+  width: 100%;
+  border-radius: .2rem;
+  background-color: rgb(197 197 197) !important;
+  min-height: calc(1.5em + 0.5rem + calc(var(--bs-border-width)* 2));
+  padding: 0.25rem 0.5rem;
+  font-size: 0.7109375rem;
+  border-radius: var(--bs-border-radius-sm);
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(90deg,
+        rgba(#a3a3a3, 0) 0,
+        rgba(#a3a3a3, 0.2) 20%,
+        rgba(#a3a3a3, 0.5) 60%,
+        rgba(#a3a3a3, 0));
+    animation: shimmer 1s infinite;
+    content: '';
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
+.placeholder-custom-container-heading {
+  width: 20%;
+  border-radius: .2rem;
+  background-color: rgb(197 197 197) !important;
+  min-height: calc(0.8em + 0.5rem + calc(var(--bs-border-width)* 2));
+  padding: 0.25rem 0.5rem;
+  font-size: 0.7109375rem;
+  border-radius: var(--bs-border-radius-sm);
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(90deg,
+        rgba(#fff, 0) 0,
+        rgba(#fff, 0.2) 20%,
+        rgba(#fff, 0.5) 60%,
+        rgba(#fff, 0));
+    animation: shimmer 1s infinite;
+    content: '';
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
+.bg-ffffffcf {
+  background-color: #ffffffcf;
+}
+
+.w-8vw {
+  width: 8vw !important;
+}
+
+
+.form-control-sm {
+  font-size: .8rem !important;
+  padding-left: .68rem;
+}
+
+.form-control-cancel {
+  border: 0 !important;
+  background: transparent !important;
+  width: 100%;
+  font-size: .8rem !important;
+
+  .ng-select-container {
+    border: 0 !important;
+    background: transparent !important;
+
+    .ng-value-label {
+      font-size: .8rem;
+    }
+
+    .ng-arrow-wrapper {
+      display: none;
+    }
+  }
+}
+
+.component-nav-item {
+  position: relative;
+  display: inline-block;
+  padding: 5px 10px;
+  border-bottom: 0.1rem solid transparent;
+  transition: border 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.component-nav-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0.1rem;
+  background: transparent;
+  transition: background 0.3s ease-in-out;
+}
+
+.component-nav-item:hover,
+.component-nav-item.active {
+  color: #007bff;
+  border-color: #007bff;
+}
+
+.form-sub-heading {
+  border-left: 4px solid #007bff;
+  margin-left: -.5rem;
+}
+
+.component-nav-item:hover::after,
+.component-nav-item.active::after {
+  background: #007bff;
+}
+
+
+.fw-600 {
+  font-weight: 600 !important;
+}
+
+
+#watermark {
+  display: none !important;
+}

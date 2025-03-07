@@ -1,0 +1,77 @@
+<div class="container-fluid">
+  <div class="container-fluid p-0 placeholder-glow" [ngClass]="{'shadow-lg' : !isItSourceOffCanvas}">
+    <form [formGroup]="dataForm">
+      <div class="py-1 rounded-2"
+        [ngClass]="{'form-container-vh-80p5' : isItSourceOffCanvas, 'form-container-vh-75' : !isItSourceOffCanvas}">
+
+        <div class="w-100 bg-ffffffcf p-2 rounded-2 position-relative">
+          <span class="position-absolute top-0 end-0 mt-2 me-2 mouse-default" (click)="isItEdit = !isItEdit">
+            <span *ngIf="!isItEdit">Edit <i class='bx bxs-pencil'></i></span>
+            <span *ngIf="isItEdit">Cancel <i class='bx bx-x-circle'></i></span>
+          </span>
+
+          <span class="px-2 fw-bold fs-5 form-sub-heading">
+            <span *ngIf="!isLoading">Material Details</span>
+            <span *ngIf="isLoading" class="placeholder placeholder-custom-container-heading ms-1"></span>
+          </span>
+          <div class="row m-0">
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600">Material Type <span
+                  class="text-danger">*</span></span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <ng-select formControlName="matType"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading, '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                class="w-100" [items]="DrpDwn_MaterialType" bindLabel="NAME" bindValue="CODE"
+                [readonly]="!isItEdit"></ng-select>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+
+            <div class="col col-12 col-md-2 mt-1 d-flex justify-content-start align-items-center flex-row">
+              <span [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading}" class="fw-600"> Material Name <span
+                  class="text-danger">*</span></span>
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+            <div class="col col-12 col-md-4 mt-1 d-flex justify-content-start align-items-center flex-column">
+              <input formControlName="matName" class="form-control form-control-sm"
+                [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading, '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+                type="text" [readonly]="!isItEdit">
+              <span *ngIf="isLoading" class="placeholder placeholder-custom"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<div class="row mt-2 bg-white mx-0 py-2 position-absolute bottom-0 start-0 end-0">
+  <div class="col-md-12 form-btns">
+    <button type="button" class="btn btn-info btn-sm w-10 shadow mx-1"
+      [ngClass]="{'mouse-default' : !isLoading, 'mouse-no-drop' : isLoading}" [hidden]="!displayBackBtn"
+      (click)="isLoading ? '': onBack()">Back</button>
+
+    <button class="btn btn-success btn-sm w-10 shadow mx-1"
+      [ngClass]="{'mouse-default' : !isLoading, 'mouse-no-drop' : isLoading}" type="button" [disabled]="!dataForm.valid"
+      [hidden]="!displaySubmitBtn" (click)="isLoading?'': onSubmit()">Submit</button>
+
+    <button type="button" class="btn btn-warning btn-sm w-10 shadow mx-1"
+      [ngClass]="{'mouse-default' : !isLoading, 'mouse-no-drop' : isLoading}" [hidden]="!displayUpdateBtn"
+      (click)="isLoading?'': onUpdate()">Update</button>
+
+    <button type="button" class="btn btn-danger btn-sm w-10 shadow mx-1"
+      [ngClass]="{'mouse-default' : !isLoading, 'mouse-no-drop' : isLoading}" [hidden]="!displayDelBtn"
+      (click)="isLoading?'': onDelete()">Delete</button>
+
+    <button type="button" class="btn btn-success btn-sm w-10 shadow mx-1"
+      [ngClass]="{'mouse-default' : !isLoading, 'mouse-no-drop' : isLoading}" [hidden]="!displayApproveBtn"
+      (click)="isLoading?'': onApprove()">Approve</button>
+
+    <button type="button" class="btn btn-dark btn-sm w-10 shadow mx-1"
+      [ngClass]="{'mouse-default' : !isLoading, 'mouse-no-drop' : isLoading}" [hidden]="!displayPrintBtn"
+      (click)="isLoading?'': onPrint()">Print</button>
+  </div>
+</div>

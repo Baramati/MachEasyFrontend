@@ -26,9 +26,6 @@ import { ModuleNotFoundComponent } from './module-not-found/module-not-found.com
 import { MaterialComponent } from './material/material.component';
 import { StockComponent } from './stock/stock.component';
 import { ConfirmAlertComponent } from './confirm-alert/confirm-alert.component';
-
-
-
 @NgModule({
   declarations: [
     MaterialComponent,

@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../core/services/auth.service';
 import { AuthfakeauthenticationService } from '../../../core/services/authfake.service';
 import { login } from 'src/app/store/Authentication/authentication.actions';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { ToastService } from 'src/app/core/services/toast.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login2',
@@ -16,8 +19,13 @@ import { Store } from '@ngrx/store';
  */
 export class Login2Component implements OnInit {
 
-  constructor(private formBuilder: UntypedFormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService,
-    private authFackservice: AuthfakeauthenticationService, public store: Store) { }
+  constructor(
+    private formBuilder: UntypedFormBuilder, 
+    private router: Router, private authenticationService: AuthenticationService,
+    private authFackservice: AuthfakeauthenticationService, public store: Store,
+    private readonly toastService: ToastService,private http: HttpClient,
+  
+  ) { }
   loginForm: UntypedFormGroup;
   submitted: any = false;
   error: any = '';
@@ -25,14 +33,14 @@ export class Login2Component implements OnInit {
 
   // set the currenr year
   year: number = new Date().getFullYear();
-
+  @ViewChild('passwordInput') passwordInput!: ElementRef;
   ngOnInit(): void {
     document.body.classList.add("auth-body-bg");
     this.loginForm = this.formBuilder.group({
-      email: ['admin@themesbrand.com', [Validators.required, Validators.email]],
-      password: ['123456', [Validators.required]],
+      username: ['', [Validators.required]],
+      pass: [''],
     });
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   // swiper config
@@ -44,20 +52,71 @@ export class Login2Component implements OnInit {
   };
 
   // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
+  get username(){
+    return this.loginForm.get('username')
+  }
+  get pass(){
+    return this.loginForm.get('pass')
+  }
 
   /**
    * Form submit
    */
-  onSubmit() {
-    this.submitted = true;
-    this.submitted = true;
 
-    const email = this.f['email'].value; // Get the username from the form
-    const password = this.f['password'].value; // Get the password from the form
+  passwordType: string = 'password';
+  show: boolean = false;
 
-    // Login Api
-    this.store.dispatch(login({ email: email, password: password }));
+  onShowPass() {
+    this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
+    this.show = !this.show;
+    this.passwordInput.nativeElement.type = this.passwordType;
   }
+  onSubmit() {
+    debugger
+    this.submitted = true;
+    console.log(this.loginForm.value)
+    // stop here if form is invalid
+    if (this.loginForm.invalid) {
+      return;
+    }
+    else {
 
-}
+      // alert("Login")
+
+
+
+
+      this.http.post(environment.baseUrl + 'auth', this.loginForm.value).subscribe((resp: any) => {
+        debugger
+
+        console.log("Resp", resp.STATUS_CODE)
+
+
+        localStorage.setItem('session_id', resp.session_id);
+        localStorage.setItem('access_token', resp.access_token)
+        sessionStorage.setItem('user_Info', JSON.stringify(resp.userInfo))
+        let obj = {
+          URL: 'common/getUserSpdata',
+          name: 'Sel_GetModuleWiseMainMenu',
+          params: [`@chrCompanyID='${resp.userInfo.COMPANY_ID}',@chrUserId=N'${resp.userInfo.USER_ID}',@chrModuleNo=N'${resp.userInfo.MODULE_NO}',@intLoginIdentity=${resp.userInfo.STATUS_CODE}`],
+          multiflag: 1
+        }
+        this.http.post(environment.baseUrl + obj.URL, obj).subscribe(res => {
+          localStorage.setItem('MenuBar', JSON.stringify(res))
+          // this.router.navigateByUrl('/pages');
+          this.router.navigate(['/pages']);
+        })
+
+
+      }, error => {
+        console.log(error.STATUS_CODE);
+        // this.router.navigateByUrl('/pages');
+        this.router.navigate(['/pages']);
+
+      });
+    }
+
+
+  }
+}    
+     

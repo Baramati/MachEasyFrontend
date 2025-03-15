@@ -6,86 +6,235 @@
   <div id="sidebar-menu">
     <!-- Left Menu Start -->
     <ul class="metismenu list-unstyled" id="side-menu" #sideMenu>
-      <!-- {{menuItems}} -->
-      @for (item of menuItems; track $index) {
-      <ng-container>
-        @if(item.isTitle){
-        <li class="menu-title">{{ item.label | translate }}</li>
-        }@else if(!item.isTitle && !item.isLayout){
-        <li>
-          @if(hasItems(item)){
-          <a href="javascript:void(0);" class="is-parent" [ngClass]="{'has-arrow': !item.badge, 'has-dropdown': item.badge}">
-            @if(item.icon){
-            <i class="bx {{item.icon}}"></i>
-            }
+      <!-- for without DB -->
+      <ng-container *ngFor="let item of menuItemsFromDB">
+        <li class="menu-title" *ngIf="item.isTitle">{{ item.label | translate }}</li>
+        <li *ngIf="!item.isTitle && !item.isLayout">
+          <a *ngIf="hasItems(item)" href="javascript:void(0);" class="is-parent font-size-15"
+            [ngClass]="{'has-arrow': !item.badge, 'has-dropdown': item.badge}">
+            <i class="bx {{item.icon}}" *ngIf="item.icon"></i>
             <span> {{ item.label | translate }}</span>
-            @if(item.badge){
-            <span class="badge rounded-pill float-end bg-{{item.badge.variant}}">{{item.badge.text |
-              translate}}</span>
-            }
-          </a>}
-          @else{
-          <a routerLink="{{item.link}}" class="side-nav-link-ref" routerLinkActive="active">
-            @if(item.icon){
-            <i class="bx {{ item.icon }}"></i>
-            }
-            <span> {{ item.label | translate }}</span>
-            @if(item.badge){
-            <span class="badge rounded-pill bg-{{item.badge.variant}} float-end">{{item.badge.text |
-              translate}}</span>
-            }
+            <span class="badge rounded-pill float-end bg-{{item.badge.variant}}" *ngIf="item.badge">{{item.badge.text |translate}}</span>
           </a>
-          }
-          @if(hasItems(item)){
-          <ul class="sub-menu" aria-expanded="false">
-            @for (subitem of item.subItems; track $index) {
-            <li>
-              @if(hasItems(subitem)){
-              <a class="side-nav-link-a-ref has-arrow" href="javascript:void(0);" [attr.data-parent]="subitem.parentId">
-                {{ subitem.label | translate}}
-              </a>
-              <ul class="sub-menu mm-collapse" aria-expanded="false">
-                @for (subSubitem of subitem.subItems; track $index) {
-                <li>
-                  <a [attr.data-parent]="subSubitem.parentId" routerLink="{{subSubitem.link}}" routerLinkActive="active" class="side-nav-link-ref">
-                    {{ subSubitem.label | translate }}
-                  </a>
-                </li>
-                }
-              </ul>}
-              @else{
-              <a routerLink="{{subitem.link}}" class="side-nav-link-ref" [attr.data-parent]="subitem.parentId" routerLinkActive="active">
-                {{ subitem.label | translate}}
-                @if(subitem.badge){
-                <span class="badge rounded-pill bg-{{subitem.badge.variant}} float-end">{{subitem.badge.text |
+
+          <a routerLink="{{item.link}}" *ngIf="!hasItems(item)" class="side-nav-link-ref font-size-15"
+            routerLinkActive="active">
+            <i class="bx {{ item.icon }}" *ngIf="item.icon"></i>
+            <span> {{ item.label | translate }}</span>
+            <span class="badge rounded-pill bg-{{item.badge.variant}} float-end" *ngIf="item.badge">{{item.badge.text |
+              translate}}</span>
+          </a>
+
+          <ul *ngIf="hasItems(item)" class="sub-menu" aria-expanded="true">
+            <li *ngFor="let sub of item.subItems">
+              <a *ngIf="hasItems(sub)" href="javascript:void(0);" class="is-parent font-size-14"
+                [ngClass]="{'has-arrow': !sub.badge, 'has-dropdown': sub.badge}">
+                <i class="bx {{sub.icon}}" *ngIf="sub.icon"></i>
+                <span> {{ sub.label | translate }}</span>
+                <span class="badge rounded-pill float-end bg-{{sub.badge.variant}}" *ngIf="sub.badge">{{sub.badge.text |
                   translate}}</span>
-                }
               </a>
-              }
+
+              <a routerLink="{{sub.link}}" *ngIf="!hasItems(sub)" class="side-nav-link-ref font-size-14"
+                routerLinkActive="active">
+                <i class="bx {{ sub.icon }}" *ngIf="sub.icon"></i>
+                <span> {{ sub.label | translate }}</span>
+                <span class="badge rounded-pill bg-{{sub.badge.variant}} float-end" *ngIf="sub.badge">{{sub.badge.text |
+                  translate}}</span>
+              </a>
+
+              <ul *ngIf="hasItems(sub)" class="sub-menu" aria-expanded="true">
+                <li *ngFor="let subitemsub of sub.subItems">
+                  <a routerLink="{{subitemsub.link}}" *ngIf="!hasItems(subitemsub)"
+                    class="side-nav-link-ref font-size-13 " [attr.data-parent]="subitemsub.parentId"
+                    routerLinkActive="active">
+                    {{ subitemsub.label | translate}}
+                    <span class="badge rounded-pill bg-{{subitemsub.badge.variant}} float-end"
+                      *ngIf="subitemsub.badge">{{subitemsub.badge.text |
+                      translate}}</span>
+                  </a>
+                  <a *ngIf="hasItems(subitemsub)" class="side-nav-link-a-ref has-arrow font-size-13"
+                    href="javascript:void(0);" [attr.data-parent]="subitemsub.parentId">
+                    {{ subitemsub.label | translate}}
+                  </a>
+
+                  <ul *ngIf="hasItems(subitemsub)" class="sub-menu" aria-expanded="true">
+                    <li *ngFor="let subitem of subitemsub.subItems">
+
+
+                      <a routerLink="{{subitem.link}}" *ngIf="!hasItems(subitem)"
+                        class="side-nav-link-ref font-size-13 " [attr.data-parent]="subitem.parentId"
+                        routerLinkActive="active">
+                        {{ subitem.label | translate}}
+                        <span class="badge rounded-pill bg-{{subitem.badge.variant}} float-end"
+                          *ngIf="subitem.badge">{{subitem.badge.text |
+                          translate}}</span>
+                      </a>
+                      <a *ngIf="hasItems(subitem)" class="side-nav-link-a-ref has-arrow font-size-13"
+                        href="javascript:void(0);" [attr.data-parent]="subitem.parentId">
+                        {{ subitem.label | translate}}
+                      </a>
+                      <ul *ngIf="hasItems(subitem)" class="sub-menu" aria-expanded="true">
+                        <li *ngFor="let subSubitem of subitem.subItems">
+                          <a routerLink="{{subSubitem.link}}" *ngIf="!hasItems(subSubitem)"
+                            class="side-nav-link-ref font-size-13 " [attr.data-parent]="subSubitem.parentId"
+                            routerLinkActive="active">
+                            {{ subSubitem.label | translate }}
+                            <span class="badge rounded-pill bg-{{subSubitem.badge.variant}} float-end"
+                              *ngIf="subSubitem.badge">{{subSubitem.badge.text |
+                              translate}}</span>
+                          </a>
+                          <a *ngIf="hasItems(subitem)" class="side-nav-link-a-ref has-arrow font-size-13"
+                            href="javascript:void(0);" [attr.data-parent]="subitem.parentId">
+                            {{ subitem.label | translate}}
+
+                          </a>
+
+                        </li>
+                      </ul> -->
+                    </li>
+                  </ul>
+                </li>
+              </ul>
             </li>
-            }
           </ul>
-          }
         </li>
-        }
       </ng-container>
-      }
+
+      <!--End for without DB -->
+
+      <!-- for with API -->
+      <ng-container *ngFor="let item of menuItemsFromAPI">
+        <li class="menu-title" *ngIf="item.isTitle">{{ item.MODULE_NAME | translate }}</li>
+
+        <li *ngIf="!item.isTitle && !item.isLayout">
+          <a *ngIf="hasItems(item)&&item.STATUS_CODE==0" href="javascript:void(0);" class="is-parent font-size-16"
+            [ngClass]="{'has-arrow': !item.badge, 'has-dropdown': item.badge}">
+            <!-- <i class="bx {{item.icon}}" *ngIf="item.icon"></i> -->
+            <i class="bx bx-cog"></i>
+            <span> {{ item.MODULE_NAME | translate }}</span>
+            <span class="badge rounded-pill float-end bg-{{item.badge.variant}}" *ngIf="item.badge">{{item.badge.text |
+              translate}}</span>
+          </a>
+
+          <a routerLink="{{item.MENU_NAV_PAGE}}" *ngIf="!hasItems(item)&&item.STATUS_CODE==0"
+            class="side-nav-link-ref font-size-12" routerLinkActive="active">
+            <!-- <i class="bx {{ item.icon }}" *ngIf="item.icon"></i> -->
+            <i class="bx bx-cog"></i>
+            <span> {{ item.MODULE_NAME | translate }}</span>
+            <span class="badge rounded-pill bg-{{item.badge.variant}} float-end" *ngIf="item.badge">{{item.badge.text |
+              translate}}</span>
+          </a>
+
+
+          <ul *ngIf="hasItems(item)" class="sub-menu" aria-expanded="true">
+            <li *ngFor="let sub of item.subItems">
+              <a *ngIf="hasItems(sub)&&sub.IS_VISIBLE==0" href="javascript:void(0);" class="is-parent font-size-14"
+                [ngClass]="{'has-arrow': !sub.badge, 'has-dropdown': sub.badge}">
+                <!-- <i class="bx {{sub.icon}}" *ngIf="sub.icon"></i>  -->
+                <i class="bx bx-file"></i>
+                <span> {{ sub.MENU_CAPTION | translate }}</span>
+                <span class="badge rounded-pill float-end bg-{{sub.badge.variant}}" *ngIf="sub.badge">{{sub.badge.text |
+                  translate}}</span>
+              </a>
+
+              <a routerLink="{{sub.MENU_NAV_PAGE}}" *ngIf="!hasItems(sub)&&sub.IS_VISIBLE==0"
+                class="side-nav-link-ref font-size-11" routerLinkActive="active">
+                <!-- <i class="bx {{ sub.icon }}" *ngIf="sub.icon"></i> -->
+                <i class="bx bx-file"></i>
+                <span> {{ sub.MENU_CAPTION | translate }}</span>
+                <span class="badge rounded-pill bg-{{sub.badge.variant}} float-end" *ngIf="sub.badge">{{sub.badge.text |
+                  translate}}</span>
+              </a>
+
+              <ul *ngIf="hasItems(sub)" class="sub-sub-menu" aria-expanded="false">
+                <li *ngFor="let subitem of sub.subItems">
+                  <a routerLink="{{subitem.MENU_NAV_PAGE}}" *ngIf="!hasItems(subitem)&&subitem.IS_VISIBLE==0"
+                    class="side-nav-link-ref font-size-12" [attr.data-parent]="subitem.parentId"
+                    routerLinkActive="active">
+                    {{ subitem.MENU_CAPTION | translate}}
+                    <span class="badge rounded-pill bg-{{subitem.badge.variant}} float-end"
+                      *ngIf="subitem.badge">{{subitem.badge.text |
+                      translate}}</span>
+                  </a>
+                  <a *ngIf="hasItems(subitem)&&subitem.IS_VISIBLE==0" class="side-nav-link-a-ref has-arrow font-size-14"
+                    href="javascript:void(0);" [attr.data-parent]="subitem.parentId">
+                    {{ subitem.MENU_CAPTION | translate}}
+                  </a>
+
+                  <ul *ngIf="hasItems(subitem)" class="sub-sub-menu" aria-expanded="false">
+                    <li *ngFor="let subitem1 of subitem.subItems">
+                      <a routerLink="{{subitem1.MENU_NAV_PAGE}}" *ngIf="!hasItems(subitem1)&&subitem1.IS_VISIBLE==0"
+                        class="side-nav-link-ref font-size-12" [attr.data-parent]="subitem1.parentId"
+                        routerLinkActive="active">
+                        {{ subitem1.MENU_CAPTION | translate}}
+                        <span class="badge rounded-pill bg-{{subitem1.badge.variant}} float-end"
+                          *ngIf="subitem1.badge">{{subitem1.badge.text |
+                          translate}}</span>
+                      </a>
+                      <a *ngIf="hasItems(subitem1)&&subitem1.IS_VISIBLE==0"
+                        class="side-nav-link-a-ref has-arrow font-size-12" href="javascript:void(0);"
+                        [attr.data-parent]="subitem1.parentId">
+                        {{ subitem1.MENU_CAPTION | translate}}
+                      </a>
+
+                      <ul *ngIf="hasItems(subitem1)" class="sub-sub-menu" aria-expanded="false">
+                        <li *ngFor="let subitem2 of subitem1.subItems">
+                          <a routerLink="{{subitem2.MENU_NAV_PAGE}}" *ngIf="!hasItems(subitem2)&&subitem2.IS_VISIBLE==0"
+                            class="side-nav-link-ref font-size-12" [attr.data-parent]="subitem2.parentId"
+                            routerLinkActive="active">
+                            {{ subitem2.MENU_CAPTION | translate}}
+                            <span class="badge rounded-pill bg-{{subitem2.badge.variant}} float-end"
+                              *ngIf="subitem2.badge">{{subitem2.badge.text |
+                              translate}}</span>
+                          </a>
+                          <a *ngIf="hasItems(subitem2)&&subitem2.IS_VISIBLE==0"
+                            class="side-nav-link-a-ref has-arrow font-size-12" href="javascript:void(0);"
+                            [attr.data-parent]="subitem2.parentId">
+                            {{ subitem2.MENU_CAPTION | translate}}
+                          </a>
+                          <ul *ngIf="hasItems(subitem2)" class="sub-sub-sub-menu mm-collapse" aria-expanded="false">
+                            <li *ngFor="let subSubitem of subitem2.subItems">
+                              <a *ngIf="!hasItems(subSubitem)&&subSubitem.IS_VISIBLE==0"
+                                class="side-nav-link-a-ref has-arrow font-size-12" [attr.data-parent]="subSubitem.parentId"
+                                routerLink="{{subSubitem.MENU_NAV_PAGE}}" routerLinkActive="active"
+                                class="side-nav-link-ref">
+                                {{ subSubitem.MENU_CAPTION | translate }}
+                              </a>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ng-container>
+      <!-- End for with API -->
     </ul>
   </div>
+
+  <!-- <input type="text" placeholder="enter number"  [(ngModel)]="selectedValue">
+  <button (click)="onChange()">Submit</button> -->
+
 </ng-template>
+
 <!-- Sidebar -->
 
 <div class="vertical-menu">
-  <ngx-simplebar class="h-100" #componentRef>
-    @if(isCondensed){
-    <div>
+  <ngx-simplebar class="h-100" #componentRef style="box-shadow: 1px 0 3px 0px #99bce8 !important;">
+    <div *ngIf="!isCondensed">
       <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
     </div>
-    }@else {
-    <div>
+    <div *ngIf="isCondensed">
       <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
     </div>
-    }
   </ngx-simplebar>
 </div>
 <!-- Left Sidebar End -->
+
+<!-- <app-loder *ngIf="loder"></app-loder> -->

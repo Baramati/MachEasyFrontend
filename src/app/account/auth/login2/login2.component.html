@@ -82,16 +82,16 @@
                                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
                                     <div class="mb-3">
-                                        <label for="email">Email</label>
-                                        <input type="email" class="form-control" id="email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Enter email">
-                                        @if(submitted && f.password.errors){
+                                        <label for="username">Username</label>
+                                        <input type="username" class="form-control" id="username" formControlName="username" [ngClass]="{ 'is-invalid': submitted && username.errors }" placeholder="Enter username">
+                                        @if(submitted && pass.errors){
                                         <div class="invalid-feedback">
-                                            @if(f.email.errors.required){
-                                            <div>Email is required</div>
+                                            @if(username.required){
+                                            <div>Username is required</div>
                                             }
-                                            @if(f.email.errors.email){
-                                            <div>Email must be a valid email address
-                                            </div>}
+                                            <!-- @if(f.username.errors.username){
+                                            <div>Username must be a valid email address
+                                            </div>} -->
                                         </div>}
                                     </div>
 
@@ -102,14 +102,28 @@
                                         </div>
                                         <label for="userpassword">Password</label>
                                         <div class="input-group auth-pass-inputgroup">
-                                            <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Enter password" aria-label="Password" aria-describedby="password-addon">
-                                            <button class="btn btn-light " type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
-                                            @if(submitted && f.password.errors){
+                                            <!-- <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submitted && password.errors }" placeholder="Enter password" aria-label="Password" aria-describedby="password-addon">
+                                            <button class="btn btn-light " type="button" id="password-addon" (click)="onShowPass()"><i class="mdi mdi-eye-outline"></i>
+                                            </button>
+                                            @if(submitted && password.errors){
                                             <div class="invalid-feedback">
-                                                @if(f.password.errors.required){
+                                                @if(password.required){
                                                 <span>Password is required</span>
                                                 }
-                                            </div>}
+                                            </div>} -->
+
+                                            <input #passwordInput type="password" class="form-control" formControlName="pass" [ngClass]="{ 'is-invalid': submitted && pass.errors }" placeholder="Enter password" aria-label="Password" aria-describedby="password-addon"/>
+                                            
+                                            <button class="btn btn-light ms-0" type="button" (click)="onShowPass()" id="password-addon">
+                                                <i class="mdi mdi-eye-outline" *ngIf="!show"></i>
+                                                <i class="mdi mdi-eye-off-outline" *ngIf="show"></i>
+                                            </button>
+                                            <!-- @if(submitted && password.errors){
+                                            <div class="invalid-feedback">
+                                                @if(password.required){
+                                                <span>Password is required</span>
+                                                }
+                                            </div>} -->
                                         </div>
                                     </div>
 

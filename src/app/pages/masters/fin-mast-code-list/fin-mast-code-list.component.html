@@ -1,0 +1,66 @@
+<div class="row my-2 bg-white mx-0 py-2 ">
+    <div class="col-md-12 d-flex align-items-center">
+      <button type="button" class="btn btn-success btn-sm w-10 shadow mx-1"
+        [ngClass]="{'mouse-default' : !isLoading, 'mouse-no-drop' : isLoading}"
+        (click)="isLoading ? '': onCreate()">Create</button>
+  
+      <div class="d-flex justify-content-start align-items-center">
+        <input
+          [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+          bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [attr.placeholder]="isItEdit ? 'DD/MM/YYYY' : ''"
+          class="form-control form-control-sm w-30 mx-1" [readonly]="!isItEdit" [(ngModel)]="fromDate" />
+        -
+        <input
+          [ngClass]="{'d-block' : !isLoading, 'd-none' : isLoading,  '' : isItEdit ,  'form-control-cancel' :!isItEdit }"
+          bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [attr.placeholder]="isItEdit ? 'DD/MM/YYYY' : ''"
+          class="form-control form-control-sm w-30 mx-1" [readonly]="!isItEdit" [(ngModel)]="toDate" />
+        <span class="bx bx-search-alt fs-4" (click)="onSearch()"></span>
+      </div>
+  
+    </div>
+  </div>
+  
+  
+  <smart-grid [behavior]="behavior" [header]="header" [appearance]="appearance" [dataSource]="dataSource"
+    [grouping]="grouping" [columns]="columns" [sorting]="sorting" [selection]="selection" [filtering]="filtering" #grid
+    id="grid" (rowClick)="onRowClick($event)" (cellClick)="onCellClick($event)"></smart-grid>
+  
+  
+  
+  <!-- STACK BUTTON  -->
+  <div class="position-absolute" style="z-index: 99999; bottom: 3.5rem; right: 3rem;"
+    *ngIf="showStackBtn && stackData.length > 0">
+    <div class="p-2 rounded-5 d-flex justify-content-between align-items-center stack-btn "
+      [ngStyle]="{'width.rem': buttonWidth, 'height.rem' : '3.5'}">
+      <div class="d-flex justify-content-center align-items-center" *ngIf="isShowFull" (click)="isShowFull = !isShowFull">
+        <i class='bx bx-chevron-right fs-2'></i>
+      </div>
+      <div class="w-auto d-flex" style="height: 100%;" *ngIf="isShowFull">
+        @for(item of stackData; track item ){
+        <div class="mx-1 rounded-2 bg-white p-1 py-2 d-flex justify-content-between align-items-center"
+          style="height: 100%; cursor: default;" (click)="openCanvas(item)">
+          <span class="me-2">{{item.NAME}}</span>
+          <i class='bx bx-x fs-4' (click)="onRemoveItemFromStack(item)"></i>
+        </div>
+        }
+      </div>
+      <div class="d-flex justify-content-center align-items-center mx-3" *ngIf="isShowFull"
+        (click)="showPopover = !showPopover">
+        <i class='bx bx-dots-horizontal-rounded fs-2'></i>
+  
+        <div class="p-3 position-absolute bg-white rounded-3" style="position: absolute;top: -3rem; cursor: default;"
+          *ngIf="showPopover" (click)="onClear()">
+          Clear
+        </div>
+        <div class="position-absolute" style="width: 0; height: 0; border-left: 0.5rem solid transparent; 
+              border-right: 0.5rem solid transparent; 
+              border-top: 0.5rem solid #fff; top:0.2rem" *ngIf="showPopover">
+        </div>
+      </div>
+  
+      <div class="d-flex justify-content-center align-items-center" (click)="isShowFull = !isShowFull; getStackData()">
+        <i class='bx bx-menu fs-2'></i>
+      </div>
+  
+    </div>
+  </div>

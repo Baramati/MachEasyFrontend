@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  defaultauth: 'fakebackend',
+  defaultauth: '',
   firebaseConfig: {
     apiKey: "",
     authDomain: "",
@@ -14,7 +14,9 @@ export const environment = {
     messagingSenderId: "",
     appId: "",
     measurementId: ""
-  }
+  },
+  // baseUrl: 'http://203.194.101.142:8087/',
+  baseUrl: 'http://192.168.1.156:8087/',
 };
 
 /*

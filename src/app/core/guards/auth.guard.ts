@@ -23,13 +23,14 @@ export class AuthGuard implements CanActivate {
                 return true;
             }
         } else {
-            const currentUser = this.authFackservice.currentUserValue;
-            if (currentUser) {
-                // logged in so return true
-                return true;
-            }
+            // const currentUser = this.authFackservice.currentUserValue;
+            // if (currentUser) {
+            //     // logged in so return true
+            //     return true;
+            // }
+            debugger
             // check if user data is in storage is logged in via API.
-            if (localStorage.getItem('currentUser')) {
+            if (sessionStorage.getItem('user_Info')) {
                 return true;
             }
         }

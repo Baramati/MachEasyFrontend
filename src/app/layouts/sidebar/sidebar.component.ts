@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -23,12 +24,23 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() isCondensed = false;
   menu: any;
   data: any;
+  menuItemsFromDB = [];
+  menuItemsFromAPI = [];
+  navData = [];
+  navdatanew = [];
+  loder: Boolean = true;
+  selectedValue: any;
+  user_Info: any;
+  sideNavData: any;
 
   menuItems: MenuItem[] = [];
 
   @ViewChild('sideMenu') sideMenu: ElementRef;
 
   constructor(private eventService: EventService, private router: Router, public translate: TranslateService, private http: HttpClient) {
+
+    this.user_Info = JSON.parse(sessionStorage.getItem('user_Info'));
+
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
         this._activateMenuDropdown();
@@ -38,8 +50,73 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnInit() {
+    debugger
+    this.loder = true; //loder on
+    let obj = {
+      URL: 'common/getUserSpdata',
+      name: 'Sel_GetModuleWiseMainMenu',
+      params: [`@chrCompanyID='${this.user_Info.COMPANY_ID}',@chrUserId=N'${this.user_Info.USER_ID}',@chrModuleNo=N'${this.user_Info.MODULE_NO}',@intLoginIdentity=${this.user_Info.STATUS_CODE}`],
+      multiflag: 1
+    }
+    this.http.post(environment.baseUrl + obj.URL, obj).subscribe(res => {
+
+      //   // console.log(res)
+      this.sideNavData = res;
+      // this.sideNavData = JSON.parse(localStorage.getItem('MenuBar'));
+      this.sideNavData[0].forEach((field: any) => {
+        field["subItems"] = []  //adding subItems into item
+        let a = this.sideNavData[1]
+        let b = a.filter(t => t.MODULE_NO === field.MODULE_NO); // filter same data form two api
+        let c = b.filter(b => b.PARENT == 0) // filter the res filter data to filter if parent data is 0 
+        field.subItems.push(...c)   // pushing data under item wise subItems
+        field.subItems.forEach((menu1: any) => {  // for subItems data loop
+          menu1["subItems"] = []   // for in subItems under we want subItems
+          b.forEach((submenu1: any) => {  // 
+            if (submenu1.PARENT != 0) {
+              if (submenu1.PARENT == menu1.MENU_KEY) {
+                menu1.subItems.push(submenu1)
+              }
+            }
+          })
+          menu1.subItems.forEach((sub: any) => {
+            sub["subItems"] = []
+            b.forEach((submenu2: any) => {
+              if (sub.MENU_KEY == submenu2.PARENT) {
+                sub.subItems.push(submenu2)
+              }
+            })
+          })
+          menu1.subItems.forEach((sub: any) => {
+            sub.subItems.forEach((sub1: any) => {
+              sub1["subItems"] = []
+              b.forEach((submenu2: any) => {
+                if (sub1.MENU_KEY == submenu2.PARENT) {
+                  sub1.subItems.push(submenu2)
+                }
+              })
+            })
+          })
+        })
+        this.navData.push(field)
+      })
+      this.navdatanew = this.navData
+      this.initialize();
+      this._scrollElement();
+      this.triggerAfterViewInit();
+
+      this.loder = false; //loder off
+
+    })
+
+
     this.initialize();
     this._scrollElement();
+  }
+  private triggerAfterViewInit() {
+    setTimeout(() => {
+      // Trigger ngAfterViewInit after a short delay to ensure the view has been initialized
+      this.ngAfterViewInit();
+    });
   }
 
   ngAfterViewInit() {
@@ -139,7 +216,10 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
    * Initialize
    */
   initialize(): void {
-    this.menuItems = MENU;
+    // this.menuItems = MENU;
+    this.menuItemsFromAPI = this.navdatanew;   //for with API
+    console.log(this.menuItemsFromAPI)
+
   }
 
   /**
@@ -149,4 +229,22 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   hasItems(item: MenuItem) {
     return item.subItems !== undefined ? item.subItems.length > 0 : false;
   }
+  onChange() {
+    let value = this.selectedValue;
+    alert(value);
+    this.selectedValue = '';
+
+    for (let item of MENU) {
+      if (item.hasOwnProperty('subItems')) {
+        let b = item.subItems.filter(t => t.id == value)
+        console.log(b);
+        if (b.length != 0) {
+          this.router.navigateByUrl(b[0].link);
+        }
+        else
+          return alert('no data found');
+      }
+    }
+  }
+
 }
